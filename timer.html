@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    body {
+      background: #333;
+    }
+
+    .timer-count-div {
+      font-size: 1em;
+      color: #E53F39;
+      display: inline-block;
+    }
+	.timer-end {
+	  top: -9em;
+	}
+    .timer-count-div > div:first-child { display: inline-block; float: none; }
+    .timer-count-down {
+      width: 1em;
+      height: 1em;
+      border: 0px transparent;
+      overflow: hidden;
+      float: right;
+    }
+
+    .timer-count-down-prev-text {
+      width: auto;
+      line-height: 1em;
+      text-align: center;
+      float: left;
+    }
+    .timer-count-down-text {
+      position: relative;
+      width: 1em;
+      line-height: 1em;
+      text-align: center;
+      margin-left: -0.2em;
+    }
+
+    .timer-count-down-text:after { content: attr(data-text-after); }
+    .timer-count-div>div>div:after { content: attr(data-text-after); }
+    .timer-second { animation: step 10s steps(10) infinite; }
+    .timer-boot-9 { animation: timer-boot-9 10s steps(10); }
+    .timer-boot-8 { animation: timer-boot-8 9s steps(9); }
+    .timer-boot-7 { animation: timer-boot-7 8s steps(8); }
+    .timer-boot-6 { animation: timer-boot-6 7s steps(7); }
+    .timer-boot-5 { animation: timer-boot-5 6s steps(6); }
+    .timer-boot-4 { animation: timer-boot-4 5s steps(5); }
+    .timer-boot-3 { animation: timer-boot-3 4s steps(4); }
+    .timer-boot-2 { animation: timer-boot-2 3s steps(3); }
+    .timer-boot-1 { animation: timer-boot-1 2s steps(2); }
+    .timer-boot-0 { animation: timer-boot-0 1s steps(1); }
+
+    @keyframes timer-boot-9 {
+      from { top: 0; }
+      to { top: -10em; }
+    }
+    @keyframes timer-boot-8 {
+      from { top: -1em; }
+      to { top: -10em; }
+    }
+    @keyframes timer-boot-7 {
+      from { top: -2em; }
+      to { top: -10em; }
+    }
+    @keyframes timer-boot-6 {
+      from { top: -3em; }
+      to { top: -10em; }
+    }
+    @keyframes timer-boot-5 {
+      from { top: -4em; }
+      to { top: -10em; }
+    }
+    @keyframes timer-boot-4 {
+      from { top: -5em; }
+      to { top: -10em; }
+    }
+    @keyframes timer-boot-3 {
+      from { top: -6em; }
+      to { top: -10em; }
+    }
+    @keyframes timer-boot-2 {
+      from { top: -7em; }
+      to { top: -10em; }
+    }
+    @keyframes timer-boot-1 {
+      from { top: -8em; }
+      to { top: -10em; }
+    }
+    @keyframes timer-boot-0 {
+      from { top: -9em; }
+      to { top: -10em; }
+    }
+    @keyframes step {
+      from { top: -10em; }
+      to { top: -20em; }
+    }
+  </style>
+</head>
+<body>
+<div class="timer-count-div">
+  <div>
+    <div class="timer-count-down-prev-text" data-text-after="天&nbsp;">0</div>
+    <div class="timer-count-down-prev-text">0</div>
+    <div class="timer-count-down-prev-text" data-text-after=":">0</div><!-- 小时 -->
+    <div class="timer-count-down-prev-text">0</div><!-- 10分钟 -->
+    <div class="timer-count-down-prev-text" data-text-after=":">0</div><!-- 分钟 -->
+    <div class="timer-count-down-prev-text">3</div><!-- 10秒-->
+  </div>
+  <div class="timer-count-down">
+    <div class="timer-count-down-text timer-boot-2" data-delay="2" data-text-after="9 8 7 6 5 4 3 2 1 0 9 8 7 6 5 4 3 2 1 0"></div>
+  </div>
+</div>
+<script>
+  function updateTimer(eve) {
+	// 1s
+    var domTimerDiv = eve.target.parentNode.parentNode.querySelector(':first-child');
+    // 10s
+    var domTimerTenSecond = domTimerDiv.querySelector('div.timer-count-down-prev-text:last-child');
+    // 1分钟
+    var domTimerMinute = domTimerDiv.querySelector('div.timer-count-down-prev-text:nth-child(5)');
+    // 10分钟
+    var domTimerTenMinute = domTimerDiv.querySelector('div.timer-count-down-prev-text:nth-child(4)');
+    // 小时
+    var domTimerHour = domTimerDiv.querySelector('div.timer-count-down-prev-text:nth-child(3)');
+    // 10小时
+    var domTimerTenHour = domTimerDiv.querySelector('div.timer-count-down-prev-text:nth-child(2)');
+    // 1天
+    var domTimerDay = domTimerDiv.querySelector('div.timer-count-down-prev-text:nth-child(1)');
+
+	if (domTimerMinute.innerHTML === '0' && domTimerTenSecond.innerHTML === '0' && domTimerTenMinute.innerHTML === '0' && domTimerHour.innerHTML === '0') {
+		typeof (domTimerMinute)
+		console.log('end')
+		eve.target.classList.remove('timer-second')
+		eve.target.classList.add('timer-end')
+		return
+	}
+	
+    if (domTimerTenSecond.innerHTML > 0) {
+          console.log('domTimerTenSeconddomTimerTenSeconddomTimerTenSecond', domTimerTenSecond)
+          domTimerTenSecond.innerHTML -= 1
+          return domTimerTenSecond
+        } else {
+          domTimerTenSecond.innerHTML = 5
+        }
+
+    if(domTimerMinute.innerHTML > 0) return domTimerMinute.innerHTML = domTimerMinute.innerHTML-1;
+    domTimerMinute.innerHTML = 9;
+
+    if(domTimerTenMinute.innerHTML > 0) return domTimerTenMinute.innerHTML = domTimerTenMinute.innerHTML-1;
+    domTimerTenMinute.innerHTML = 5;
+
+    if(domTimerHour.innerHTML > 0) return domTimerHour.innerHTML = domTimerHour.innerHTML-1;
+
+    if(domTimerTenHour.innerHTML > 0) {
+      domTimerHour.innerHTML = 9;
+      return domTimerTenHour.innerHTML = domTimerTenHour.innerHTML-1;
+    }
+    domTimerHour.innerHTML = 3;
+    domTimerTenHour.innerHTML = 2;
+
+    if(domTimerDay.innerHTML > 0) return domTimerDay.innerHTML = domTimerDay.innerHTML-1;
+    domTimerDay.innerHTML = 9;
+  }
+  
+  [].forEach.call(document.querySelectorAll('.timer-count-div>.timer-count-down>.timer-count-down-text'),
+    function (domTimer) {
+      domTimer.addEventListener('webkitAnimationEnd', function (eve) {
+        this.classList.remove('timer-boot-'+this.getAttribute('data-delay') );
+        this.classList.add('timer-second');
+        updateTimer(eve);
+        this.addEventListener('webkitAnimationIteration',updateTimer);
+	  });
+    }
+  );
+</script>
+</body>
+</html>
